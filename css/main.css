@@ -1,0 +1,56 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+.playground {
+
+    background-color: azure;
+    border: 1px solid;
+    border-color: lavender;
+    display: flex;
+    flex-direction: row;
+    /* align-items: center;
+    justify-content: center; */
+    /* flex-wrap: wrap; */
+}
+.player{
+    height: 4rem;
+    width: 4rem;
+    background-color: transparent;
+    position: absolute;
+    margin: 1px;
+    background-image: url('../images/p3.png');
+    background-size: cover;
+}
+.tile {
+    height: 4rem;
+    width: 4rem;
+    /* background-color: greenyellow; */
+    border: 1px solid green;
+    background-image: url('../images/grassland.png');
+    background-size: cover;
+}
+
+.row {
+    /* align-items: center;
+    justify-content: center; */
+display: flex;
+flex-direction: column;
+margin: 1px;
+}
+
+.row:first-child > .tile{
+    background-color: whitesmoke;
+    background-image: url('../images/plains.png');
+}
+
+.row:last-child > .tile{
+    background-color: whitesmoke;
+    background-image: url('../images/army.png');
+}
+
+.mine{
+    background-color: whitesmoke;
+    background-image: url('../images/explosion.png') ;
+}
