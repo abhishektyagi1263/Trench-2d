@@ -5,11 +5,12 @@
     --player: 5.1rem;
 }
 
-.body{
+.body {
     max-height: 100vh;
     max-width: 100vw;
     overflow: hidden;
 }
+
 * {
     margin: 0%;
     padding: 0%;
@@ -66,6 +67,10 @@
     justify-content: center;
     align-items: center;
 
+
+
+
+
 }
 
 .control-panel {
@@ -81,7 +86,14 @@
     flex-direction: row;
     background: linear-gradient(1deg, #aec8da 0%, #fbfcfd 100%);
     position: relative;
-    left:3rem;
+    left: 3rem;
+
+    background: #80d5a6;
+    border: 5px dashed mediumseagreen;
+    box-shadow: 0 0 0 2.5px #226741, 0 0 0 12.5px #fff, inset 0 0 0 2.5px #226741, 0 5px 10px 15px rgba(0, 0, 0, 0.5), inset 0 0 0 6px #fff, inset 0 0 100vw 100vw beige;
+    color: mediumseagreen;
+
+    text-shadow: 0 2px #fff;
 }
 
 .playground-wrapper {
@@ -90,9 +102,9 @@
         justify-content: center;
         align-content: center;
         display: flex;
-     
-        margin:  1rem;
-       
+
+        margin: 1rem;
+
     }
 }
 
@@ -105,16 +117,22 @@
     background-image: url('../images/soldier.png');
     background-size: cover;
     z-index: 1;
+    display: flex;
+    align-items: end;
+    justify-content: end;
 
 }
-#player2{
-   transform:  rotateY(180deg);
-   background-image: url('../images/p1.png');
-}
-#p2{
-    transform:  rotateY(180deg);
 
- }
+#player2 {
+    transform: rotateY(180deg);
+    background-image: url('../images/p1.png');
+}
+
+#p2 {
+    transform: rotateY(180deg);
+
+}
+
 .tile {
     height: var(--box);
     width: var(--box);
@@ -132,16 +150,16 @@
 }
 
 
-.p1-camp{
+.p1-camp {
     background-color: #38cfb9;
-    background-image: url('../images/enemy-camp.png')!important;
+    background-image: url('../images/enemy-camp.png') !important;
     background-size: cover;
 }
 
 
 
 .row:last-child>.tile:last-child {
-    
+
     background-color: #5058c2;
     background-image: url('../images/enemy-camp.png');
     background-size: cover;
@@ -151,4 +169,20 @@
     background-color: whitesmoke;
     background-image: url('../images/explosion.png');
     background-size: cover;
+}
+
+#logs {
+    min-width: 8rem;
+}
+
+.pAll {
+    color: rgb(0, 0, 0);
+    background-color: rgba(255, 255, 255, 0.136);
+    border: 1px solid gainsboro;
+    padding: 1px;
+    border-radius: 4px;
+}
+button{
+    padding: 1rem;
+    border: 3px;
 }

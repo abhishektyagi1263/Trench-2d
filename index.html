@@ -15,25 +15,30 @@
 <body>
 
     <div class="wrapper">
+
         <div class="game-board">
             <div class="playground-wrapper">
                 <div class="playground">
                     <div id="player1" class="player">
-                        <div id="p1"></div>
+                        <div id="p1" style="color: rgb(0, 0, 0); background-color: rgba(255, 255, 255, 0.3);border: 1px solid gainsboro;padding: 1px;border-radius: 4px;"></div>
                     </div>
                     <div id="player2" class="player">
-                        <div id="p2"></div>
+                        <div style="color: rgb(0, 0, 0); background-color: rgba(255, 255, 255, 0.3);border: 1px solid gainsboro;padding: 1px;border-radius: 4px;" id="p2"></div>
                     </div>
                 </div>
             </div>
             <div class="controls-panel-wrapper">
                 <div class="control-panel">
                     <div class="restart-button">
-                        <h1 id="turn">hi</h1>
+                        <h1 id="turn"></h1>
                         <H1>Game Controls</H1>
                         <button onclick="restartGame()">Restart Game</button>
-
+                        <h1>Logs</h1>
+                    <ol id="logs">
+                        
+                    </ol>
                     </div>
+                    
                 </div>
             </div>
         </div>

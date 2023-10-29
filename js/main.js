@@ -98,14 +98,14 @@ function movePlayer(event) {
 
 
     tileId = event.target.id;
-    let oldPlayerCoods=null;
+    let playerInfoTemp=null;
     let player = null;
     if (isPlayer1Turn) {
-         oldPlayerCoods=player1Info; 
+         playerInfoTemp=player1Info; 
         player = player1;
     }
     else{
-         oldPlayerCoods=player2Info; 
+         playerInfoTemp=player2Info; 
          player=player2;
     }
     
@@ -115,7 +115,7 @@ function movePlayer(event) {
         top: Number(playerNewCoodinates[1]), left: Number(playerNewCoodinates[0])
     }
 
-    if (isValidMove(move,oldPlayerCoods)) {
+    if (isValidMove(move,playerInfoTemp)) {
         console.table(Number(playerCurrentLeft), Number(playerNewCoodinates[0])
         );
         if (isPlayer1Turn) {
@@ -135,21 +135,23 @@ function movePlayer(event) {
     }
         if (won(move,isPlayer1Turn)) { 
             
-            setTimeout(()=>{alert(oldPlayerCoods.name+' YOU WON');restartGame()}, 500)
+            setTimeout(()=>{alert(playerInfoTemp.name+' YOU WON');restartGame()}, 500)
         
         }
         if (check4Mines(move)) {
             
             explodedTile=document.getElementById(tileId);
             explodedTile.classList.add('mine');
-            setTimeout(()=>{alert(oldPlayerCoods.name+' YOU LOSE');restartGame()}, 500)
+            setTimeout(()=>{alert(playerInfoTemp.name+' YOU LOSE');restartGame()}, 500)
             
             
         }
         if (!check4Mines(move)&&!won(move)) {
             isPlayer1Turn=!isPlayer1Turn;
             whoseTurn();
+             writeLog(move,playerInfoTemp);
         }
+        
 
     }
     else {
@@ -160,9 +162,15 @@ function movePlayer(event) {
 
 }
 
-function isValidMove(move,oldPlayerCoods) {
-    playerCurrentTop = oldPlayerCoods.top;
-    playerCurrentLeft = oldPlayerCoods.left;
+function writeLog(move,pInfo) {
+    let log = document.createElement('li');
+    log.innerHTML=`<p><strong>`+pInfo.name+`</strong>`+` played :`+move.left+`-`+move.top+`</p>`;
+
+    document.getElementById('logs').appendChild(log);
+}
+function isValidMove(move,playerInfoTemp) {
+    playerCurrentTop = playerInfoTemp.top;
+    playerCurrentLeft = playerInfoTemp.left;
     return (
         (Number(playerCurrentLeft) + 1 == Number(move.left)
             || Number(playerCurrentLeft) - 1 == Number(move.left)
@@ -184,9 +192,9 @@ function check4Mines(move) {
 }
 
 function restartGame() {
-    restart=prompt('RESTART GAME');
+    restart=prompt('To RESTART GAME - ENTER Y');
     gameEnded=true;
-            if (restart==='y') {
+            if (restart==='Y' || restart==='y' ) {
                 location.reload(true);
                 gameEnded=false;
             }
