@@ -8,7 +8,7 @@
 .body {
     max-height: 100vh;
     max-width: 100vw;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 * {
@@ -24,12 +24,16 @@
     height: 100vh;
     width: 100vw;
     background-color: #d4d9e0;
+
+    overflow: hidden;
     /* background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(100, 43, 115, 1) 0%, rgba(4, 0, 4, 1) 90%); */
 }
 
 .title {
     display: flex;
     align-items: center;
+    background-color: #5058c2;
+
 }
 
 .game-title {
@@ -59,6 +63,7 @@
     justify-self: end;
     flex-direction: row-reverse;
     margin-left: 15rem;
+    /* background-color: #5058c2; */
 }
 
 .game-board {
@@ -66,11 +71,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
-
-
-
-
 }
 
 .control-panel {
@@ -111,24 +111,24 @@
 .player {
     height: var(--player);
     width: var(--player);
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.13);
     position: absolute;
     margin: 1px;
-    background-image: url('../images/soldier.png');
+    background-image: url('../images/giphy.gif');
     background-size: cover;
     z-index: 1;
     display: flex;
     align-items: end;
     justify-content: end;
-
+    transition: top 1s ease, left 1s ease
 }
 
-#player2 {
+#player1 {
     transform: rotateY(180deg);
-    background-image: url('../images/p1.png');
+    background-image: url('../images/giphy.gif');
 }
 
-#p2 {
+#p1 {
     transform: rotateY(180deg);
 
 }
@@ -167,7 +167,7 @@
 
 .mine {
     background-color: whitesmoke;
-    background-image: url('../images/explosion.png');
+    background-image: url('../images/exp.gif');
     background-size: cover;
 }
 
@@ -182,7 +182,43 @@
     padding: 1px;
     border-radius: 4px;
 }
-button{
+
+button {
     padding: 1rem;
     border: 3px;
+}
+
+.player-lose {
+    transition: width 2s, height 2s, transform 2s;
+    transform: rotate(45deg)
+        /* transition: top 1s ease,left 1s ease; */
+}
+
+@media only screen and (max-width: 600px) {
+    .wrapper {
+        flex-direction: column-reverse;
+    }
+    
+    .game-title{
+        writing-mode: horizontal-tb;
+        text-orientation: mixed;
+        font-size: 3rem;
+        color: white;
+        justify-self: center;
+    }
+    .panel {
+        /* height: 100%;
+        width: 100%; */
+        display: flex;
+        justify-self: start;
+        flex-direction: column;
+        margin-left: 0;
+        /* background-color: #5058c2; */
+    }
+    .game-board {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: space-evenly;
+    }
 }

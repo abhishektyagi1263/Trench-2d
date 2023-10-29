@@ -11,10 +11,10 @@ let player1 = document.getElementById('player1');
 // let player2 = document.getElementById('player2');
 const size = 8;
 let player1Info = {
-    top: 1, left: 1, name: ''
+    top: 1, left: 1, name: '',id:'player1'
 };
 let player2Info = {
-    top: size-1, left: size-1, name: ''
+    top: size-1, left: size-1, name: '',id:'player2'
 };
 let isPlayer1Turn = true;
 
@@ -133,23 +133,25 @@ function movePlayer(event) {
         player2Info.top = playerNewCoodinates[1];
         
     }
+
+    writeLog(move,playerInfoTemp);
         if (won(move,isPlayer1Turn)) { 
             
-            setTimeout(()=>{alert(playerInfoTemp.name+' YOU WON');restartGame()}, 500)
+            setTimeout(()=>{alert(playerInfoTemp.name.toUpperCase()+' YOU WON');restartGame()}, 500)
         
         }
         if (check4Mines(move)) {
+            setTimeout(()=>{explodedTile=document.getElementById(tileId);
+                explodedTile.classList.add('mine');document.getElementById(playerInfoTemp.id).classList.add('player-lose')}, 300)
             
-            explodedTile=document.getElementById(tileId);
-            explodedTile.classList.add('mine');
-            setTimeout(()=>{alert(playerInfoTemp.name+' YOU LOSE');restartGame()}, 500)
+            setTimeout(()=>{alert(playerInfoTemp.name.toUpperCase()+' YOU LOSE');restartGame()}, 1000)
             
             
         }
         if (!check4Mines(move)&&!won(move)) {
             isPlayer1Turn=!isPlayer1Turn;
             whoseTurn();
-             writeLog(move,playerInfoTemp);
+            
         }
         
 
