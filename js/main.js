@@ -1,11 +1,17 @@
 const playground = document.getElementsByClassName("playground");
 console.table(playground);
+
+var audio = new Audio('./audio/haunt.mp3');
+audio.loop=true;
+audio.play();
+
+let gameEnded=false;
 let rows = [];
 let player1 = document.getElementById('player1');
 let player1CurrentCood = {
     top: 1, left: 1
 }
-const size = 10;
+const size = 8;
 let mineFeild = [];
 function mineGenerator() {
     let x = Math.random() * 10;
@@ -51,7 +57,10 @@ function createBoard(size) {
 
 createBoard(size);
 function movePlayer(event) {
-
+    if (gameEnded) {
+        alert("game has eneded");
+        restartGame();
+    }
     console.log(event);
 
 
@@ -66,23 +75,20 @@ function movePlayer(event) {
         console.table(Number(playerCurrentLeft), Number(playerNewCoodinates[0])
         );
 
-        player1.style.top = (playerNewCoodinates[1] * 4) + "rem";
-        player1.style.left = (playerNewCoodinates[0] * 4) + "rem";
+        player1.style.top = (playerNewCoodinates[1] * 6.1) + "rem";
+        player1.style.left = (playerNewCoodinates[0] * 6.1) + "rem";
         player1CurrentCood.left = playerNewCoodinates[0];
         player1CurrentCood.top = playerNewCoodinates[1];
         if (won(move)) { 
             
-            setTimeout(()=>{alert('you won')}, 500)
+            setTimeout(()=>{alert('YOU WON');restartGame()}, 500)
         
         }
         if (check4Mines(move)) {
             
             explodedTile=document.getElementById(tileId);
             explodedTile.classList.add('mine');
-            setTimeout(()=>{restart=prompt('you stepped on mine');
-            if (restart==='y') {
-                location.reload(true);
-            }}, 500)
+            setTimeout(()=>{alert('YOU LOSE');restartGame()}, 500)
             
             
         }
@@ -111,10 +117,19 @@ function isValidMove(move) {
 }
 
 function won() {
-    return player1CurrentCood.left == size - 1;
+    return player1CurrentCood.left == size - 1 && player1CurrentCood.right==size-1;
 }
 
 function check4Mines(move) {
     
     return mineFeild[move.top][move.left];
+}
+
+function restartGame() {
+    restart=prompt('RESTART GAME');
+    gameEnded=true;
+            if (restart==='y') {
+                location.reload(true);
+                gameEnded=false;
+            }
 }
