@@ -4,17 +4,17 @@ console.table(playground);
 var audio = new Audio('./audio/haunt.mp3');
 audio.loop=true;
 audio.play();
-
+let root = document.documentElement;
 let gameEnded=false;
 let rows = [];
 let player1 = document.getElementById('player1');
 // let player2 = document.getElementById('player2');
 const size = 8;
 let player1Info = {
-    top: 1, left: 1, name: '',id:'player1'
+    top: 0, left: 0, name: 'player1',id:'player1'
 };
 let player2Info = {
-    top: size-1, left: size-1, name: '',id:'player2'
+    top: size-1, left: size-1, name: 'player2',id:'player2'
 };
 let isPlayer1Turn = true;
 
@@ -40,8 +40,29 @@ function generateField(size) {
     console.table(mineFeild);
 }
 
+function getFactor() {
+    let screenWidth=window.visualViewport.width;
+    const baseWidthPx=1536;
+    let factor=screenWidth/baseWidthPx;
+    return factor;
+}
 
+function changeTileSize(factor){
+     let baseSize = parseFloat(5.3);
+     let newSize = baseSize * factor;
+     root.style.setProperty('--tile',newSize+'rem');
+     root.style.setProperty('--player',newSize+'rem');
+     console.log('new width'+newSize);
+}
+
+changeTileSize(getFactor())
+
+window.visualViewport.addEventListener('resize',function () {
+    changeTileSize(getFactor());
+    setUpPlayers() ;
+});
 function createBoard(size) {
+
     p1=prompt("Enter Player 1 Name");
     player1Info
     p2=prompt("Enter Player 2 Name");
@@ -74,7 +95,7 @@ function createBoard(size) {
 }
 
 createBoard(size);
-
+// getsize();
 function whoseTurn() {
     if (isPlayer1Turn) {
         document.getElementById('turn').innerText='Player - '+player1Info.name.toUpperCase()+' Turn'
@@ -82,11 +103,15 @@ function whoseTurn() {
     else{document.getElementById('turn').innerText='Player - '+player2Info.name.toUpperCase()+' Turn'}
 }
 function setUpPlayers() {
-    player1.style.top = (0) + "rem";
-    player1.style.left = (0) + "rem";
-
-    player2.style.top = (player2Info.top * 5.4) + "rem";
-    player2.style.left = (player2Info.left * 5.4) + "rem";
+    let str=root.style.getPropertyValue('--tile');
+    var lastFive = str.substring(0,str.length- 3);
+    
+    player1.style.top = 0.1+(player1Info.top * lastFive) + "rem";
+    player1.style.left = 0.1+(player1Info.left * lastFive) + "rem";
+  
+    console.log("value:"+lastFive);
+    player2.style.top = 0.1+(player2Info.top * lastFive) + "rem";
+    player2.style.left = 0.1+(player2Info.left * lastFive) + "rem";
 }
 
 function movePlayer(event) {
@@ -102,10 +127,12 @@ function movePlayer(event) {
     let player = null;
     if (isPlayer1Turn) {
          playerInfoTemp=player1Info; 
+         
         player = player1;
     }
     else{
          playerInfoTemp=player2Info; 
+         
          player=player2;
     }
     
@@ -119,21 +146,21 @@ function movePlayer(event) {
         console.table(Number(playerCurrentLeft), Number(playerNewCoodinates[0])
         );
         if (isPlayer1Turn) {
-        player1.style.top = (playerNewCoodinates[1] * 5.4) + "rem";
-        player1.style.left = (playerNewCoodinates[0] * 5.4) + "rem";
+        // player1.style.top = (playerNewCoodinates[1] * 5.4) + "rem";
+        // player1.style.left = (playerNewCoodinates[0] * 5.4) + "rem";
         player1Info.left = playerNewCoodinates[0];
         player1Info.top = playerNewCoodinates[1];
         
     }
 
     if (!isPlayer1Turn) {
-        player2.style.top = (playerNewCoodinates[1] * 5.4) + "rem";
-        player2.style.left = (playerNewCoodinates[0] * 5.4) + "rem";
+        // player2.style.top = (playerNewCoodinates[1] * 5.4) + "rem";
+        // player2.style.left = (playerNewCoodinates[0] * 5.4) + "rem";
         player2Info.left = playerNewCoodinates[0];
         player2Info.top = playerNewCoodinates[1];
         
     }
-
+    setUpPlayers();
     writeLog(move,playerInfoTemp);
         if (won(move,isPlayer1Turn)) { 
             
