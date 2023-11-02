@@ -216,6 +216,9 @@ button {
 }
 
 @media only screen and (max-width: 900px) {
+    --root{
+        
+    }
     .wrapper {
         flex-direction: column-reverse;
     }

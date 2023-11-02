@@ -43,15 +43,23 @@ function generateField(size) {
 function getFactor() {
     let screenWidth=window.visualViewport.width;
     const baseWidthPx=1536;
+    let screenhigth=window.visualViewport.height;
+    const baseheightPx=748;
+    let a = screenWidth/8;
+    return a;
     let factor=screenWidth/baseWidthPx;
+    let fy = screenhigth/baseheightPx;
+    if (fy<factor) {
+        return fy;
+    }
     return factor;
 }
 
 function changeTileSize(factor){
      let baseSize = parseFloat(5.3);
-     let newSize = baseSize * factor;
-     root.style.setProperty('--tile',newSize+'rem');
-     root.style.setProperty('--player',newSize+'rem');
+     let newSize = Math.ceil(factor)-5;
+     root.style.setProperty('--tile',newSize+'px');
+     root.style.setProperty('--player',newSize+'px');
      console.log('new width'+newSize);
 }
 
@@ -104,14 +112,14 @@ function whoseTurn() {
 }
 function setUpPlayers() {
     let str=root.style.getPropertyValue('--tile');
-    var lastFive = str.substring(0,str.length- 3);
+    var lastFive = str.substring(0,str.length- 2);
     
-    player1.style.top = 0.1+(player1Info.top * lastFive) + "rem";
-    player1.style.left = 0.1+(player1Info.left * lastFive) + "rem";
+    player1.style.top = 0.1+(player1Info.top * lastFive) + "px";
+    player1.style.left = 0.1+(player1Info.left * lastFive) + "px";
   
     console.log("value:"+lastFive);
-    player2.style.top = 0.1+(player2Info.top * lastFive) + "rem";
-    player2.style.left = 0.1+(player2Info.left * lastFive) + "rem";
+    player2.style.top = 0.1+(player2Info.top * lastFive) + "px";
+    player2.style.left = 0.1+(player2Info.left * lastFive) + "px";
 }
 
 function movePlayer(event) {
