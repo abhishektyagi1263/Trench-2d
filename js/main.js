@@ -46,12 +46,14 @@ function getFactor() {
     let screenhigth=window.visualViewport.height;
     const baseheightPx=748;
     let a = screenWidth/8;
-    return a;
+    let b = screenhigth/8;
+    if (a<b) {
+        return a;
+    }
+    return b;
     let factor=screenWidth/baseWidthPx;
     let fy = screenhigth/baseheightPx;
-    if (fy<factor) {
-        return fy;
-    }
+    
     return factor;
 }
 
